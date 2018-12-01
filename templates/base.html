@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+{% block header %}
+    <head>
+        {% block title %}
+            <title>Website</title>
+        {% endblock %}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/static/css/style.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </head>
+{% endblock %}
+
+<body>
+<nav class="navbar navbar-inverse" id="top-navbar">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/" id="index-nav">Website</a>
+        </div>
+
+        {% block navbar %}
+            <ul class="nav navbar-nav">
+                {% for tab in ltabs %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/{{ tab }}">{{ tab }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                {% for tab in rtabs %}
+                    <li class="nav-item">
+                        <a class="nav-link" id="{{ tab }}-nav" href="/{{ tab }}">{{ tab }}</a>
+                    </li>
+                {% endfor %}
+                {% if g.username %}
+                    <li class="nav-item">
+                        <a class="navbar-brand">{{ g.username }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="navbar-brand" id="profile-nav" href="/profile">profile</a>
+                    </li>
+                    <li id="logout-nav">
+                        <a href="/auth/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+                    </li class="nav-item">
+                {% else %}
+                    <li class="nav-item">
+                        <a href="/auth/login"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+                    </li>
+                {% endif %}
+            </ul>
+        {% endblock %}
+    </div>
+</nav>
+<br>
+
+<div class="container-fluid">
+    <div class="content">
+        {% for code, message in get_flashed_messages() %}
+            {% if code == "error" %}
+                <div class="alert alert-danger alert-dismissible">
+                    <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>{{ message }}</strong>
+                </div>
+            {% elif code == "success" %}
+                <div class="alert alert-success alert-dismissible">
+                    <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>{{ message }}</strong>
+            </div>
+            {% endif %}
+        {% endfor %}
+        {% block content %}
+        {% endblock %}
+    </div>
+</div>
+</body>
+
+<script>
+    $(document).ready(function() {
+        var navbar = document.getElementById("top-navbar");
+        var nav_items = navbar.getElementsByTagName('a');
+
+        for (var i=0; i<nav_items.length; ++i) {
+            if (nav_items.item(i).href.toString() == document.location.toString()) {
+                nav_items.item(i).className += " active";
+                break;
+            }
+        }
+    })
+</script>
+</html>

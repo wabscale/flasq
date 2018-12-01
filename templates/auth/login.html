@@ -1,0 +1,26 @@
+
+{% extends 'base.html' %}
+
+
+{% block content %}
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <div class="jumbotron">
+                <h1>Login</h1>
+                <form method="post" class="">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input class="form-control" name="username" id="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input class="form-control" type="password" name="password" id="password">
+                    </div>
+                    <input class="btn btn-primary" type="submit" value="Log In">
+                </form>
+                </div>
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+{% endblock %}
