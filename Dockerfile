@@ -7,7 +7,7 @@ ENV WORKERS=8
 COPY . /${NAME}
 WORKDIR /${NAME}
 
-EXPOSE 5000
+EXPOSE ${PORT}
 
 RUN pip3 install -r requirements.txt
-CMD gunicorn -b 0.0.0.0:${PORT} -w ${WORKERS} app:app 0.0.0 ${PORT}
+CMD gunicorn -b 0.0.0.0:${PORT} -w ${WORKERS} app:app
