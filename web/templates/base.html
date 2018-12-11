@@ -1,0 +1,69 @@
+{% from 'bootstrap/form.html' import render_form %}
+{% from 'bootstrap/nav.html' import render_nav_item %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+{% block header %}
+    <head>
+        {% block title %}
+            <title>Website</title>
+        {% endblock %}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {{ bootstrap.load_css() }}
+        <link rel="stylesheet" href="/static/css/style.css">
+    </head>
+{% endblock %}
+
+<body>
+<nav class="navbar navbar-inverse" id="top-navbar">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/" id="index-nav">Website</a>
+        </div>
+
+        {% block navbar %}
+            <ul class="nav navbar-nav">
+                {# <li class="nav-item"> #}
+                {#     <a class="nav-link" href="/{{ tab }}">{{ tab }}</a> #}
+                {# </li> #}
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                {# <li class="nav-item"> #}
+                {#     <a class="nav-link" id="{{ tab }}-nav" href="/{{ tab }}">{{ tab }}</a> #}
+                {# </li> #}
+                {% if current_user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="navbar-brand">{{ current_user.name }}</a>
+                    </li>
+                    <li id="logout-nav">
+                        <a href="{{ url_for('auth.logout') }}"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+                    </li class="nav-item">
+                {% else %}
+                    <li class="nav-item">
+                        <a href="{{ url_for('auth.login') }}"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+                    </li>
+                {% endif %}
+            </ul>
+        {% endblock %}
+    </div>
+</nav>
+<br>
+
+<main role="main">
+    <div class="container-fluid">
+        <div class="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+</main>
+
+
+<script src="/static/js/navbar.js"></script>
+{{ bootstrap.load_js() }}
+
+</body>
+</html>

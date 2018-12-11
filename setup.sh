@@ -16,5 +16,3 @@ virtualenv -p ${PYTHON_I} ${ENV_NAME}
 
 source ${ENV_NAME}/bin/activate
 sudo pip install -r requirements.txt
-
-echo "source $ENV_NAME/bin/activate" > activate

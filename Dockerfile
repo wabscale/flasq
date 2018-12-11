@@ -1,19 +1,12 @@
-FROM ubuntu:18.04
-MAINTAINER big_J
+FROM python:3.7
 
 ENV NAME=Site
-ENV PORT=1337
+ENV PORT=5000
 
-COPY . /${NAME}
-WORKDIR /${NAME}
+COPY . /home/${NAME}
+WORKDIR /home/${NAME}
 
-RUN apt-get update
-RUN apt-get install -y \
-    python3 \
-    python3-dev \
-    python3-pip \
-    gunicorn
-RUN ./setup.sh
-RUN source ./activate
 
-CMD gunicorn -b 0.0.0.0:${PORT} -w 8 app:app 0.0.0.0 ${PORT}
+RUN pip install -r requirements.txt
+
+CMD gunicorn -b 0.0.0.0:${PORT} -w 8 web:app
