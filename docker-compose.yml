@@ -12,4 +12,4 @@ services:
     ports:
       - "443:443"
     volumes:
-      - "/etc/letsencrypt/live/default/:/etc/letsencrypt/live/default"
+      - "/etc/letsencrypt:/etc/letsencrypt"
