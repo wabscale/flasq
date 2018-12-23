@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  flasq:
+    build: .
+    environment:
+      - SITENAME=default
+      - PORT=443
+      - WORKERS=8
+    expose:
+      - "443"
+    ports:
+      - "443:443"
+    volumes:
+      - "/etc/letsencrypt/live/default/:/etc/letsencrypt/live/default"

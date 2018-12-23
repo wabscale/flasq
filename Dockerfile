@@ -7,8 +7,7 @@ ENV WORKERS=8
 COPY . /home/${SITENAME}
 WORKDIR /home/${SITENAME}
 
-RUN mkdir -p ADD /etc/letsencrypt/live/${SITENAME}
-ADD /etc/letsencrypt/live/${SITENAME}/ /etc/letsencrypt/live/${SITENAME}
+RUN mkdir -p ADD /etc/letsencrypt/live/default
 
 RUN pip3 install -r requirements.txt
 CMD gunicorn --config guncorn_config.py web:app
