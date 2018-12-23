@@ -11,7 +11,7 @@ DOCKER_COMPOSE=docker-compose
 
 .PHONY: run setup build rund killd clean cleand
 
-all: build
+all: cbuild
 
 deploy: ckill
 	${DOCKER_COMPOSE} up -d
