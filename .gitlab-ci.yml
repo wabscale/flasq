@@ -6,4 +6,4 @@ build_flasq:
   tags:
     - server-tag
   script:
-    - make cbuild
+    - make build
