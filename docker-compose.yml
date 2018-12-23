@@ -3,13 +3,10 @@ version: '3'
 services:
   flasq:
     build: .
-    environment:
-      - SITENAME=default
-      - PORT=443
-      - WORKERS=8
     expose:
-      - "443"
+      - "5000"
     ports:
-      - "443:443"
+      - "443:5000"
     volumes:
       - "/etc/letsencrypt:/etc/letsencrypt"
+      - "/route/to/data:/home/flasq/${SITENAME}/web/data"
