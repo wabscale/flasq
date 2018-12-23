@@ -1,0 +1,9 @@
+stages:
+  - build
+
+build_flasq:
+  stage: build
+  tags:
+    - server-tag
+  script:
+    - make cbuild
