@@ -1,13 +1,14 @@
 FROM python:3.7
 
-ENV SITENAME=default
-ENV PORT=443
-ENV WORKERS=8
 
-COPY . /home/${SITENAME}
-WORKDIR /home/${SITENAME}
+RUN useradd -ms /bin/bash flasq
 
-RUN mkdir -p ADD /etc/letsencrypt/live/default
+COPY . /home/flasq/${SITENAME}
+WORKDIR /home/flasq/${SITENAME}
 
+RUN mkdir -p /etc/letsencrypt
 RUN pip3 install -r requirements.txt
-CMD gunicorn --config guncorn_config.py web:app
+
+RUN chown -R flasq /home/flasq
+USER flasq
+CMD gunicorn --config gunicorn_config.py web:app
