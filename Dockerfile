@@ -2,7 +2,7 @@ FROM python:3.7
 
 ENV SITENAME=flasq
 ENV WORKERS=8
-ENV PORT=443
+ENV PORT=5000
 
 RUN useradd -ms /bin/bash flasq
 
