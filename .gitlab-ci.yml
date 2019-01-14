@@ -2,7 +2,7 @@ stages:
   - build
 
 before_script:
-  - docker login -u jmc1283 -p $DOCKER_PASSWORD
+  - docker login
   
 build_flasq:
   stage: build
