@@ -6,4 +6,6 @@ build_flasq:
   tags:
     - server-tag
   script:
-    - make cbuild
+    - make buildbase
+    - docker login -u jmc1283 -p ${DOCKER_PASSWORD}
+    - docker push jmc1283/flasq-base
