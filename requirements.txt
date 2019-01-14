@@ -1,6 +1,0 @@
-bootstrap-flask
-flask-sqlalchemy
-flask-login
-flask-wtf
-gunicorn
-flask
