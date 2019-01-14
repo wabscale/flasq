@@ -11,7 +11,7 @@ DOCKER_COMPOSE=docker-compose
 
 .PHONY: run setup build rund killd clean cleand
 
-all: cbuild
+all: build
 
 deploy: ckill
 	${DOCKER_COMPOSE} up -d
@@ -22,8 +22,15 @@ cbuild:
 ckill:
 	${DOCKER_COMPOSE} kill
 
+buildall:
+	make buildbase
+	make build
+
 build:
 	${DOCKER} build -t ${DOCKER_IMAGE_NAME} .
+
+buildbase:
+	${DOCKER} build -t jmc1283/flasq-base base
 
 rund: killd
 	${DOCKER} run ${DOCKER_OPTIONS} --name ${DOCKER_IMAGE_NAME} ${DOCKER_IMAGE_NAME}
@@ -37,12 +44,12 @@ setup:
 	if [ -d ${ENV_NAME} ]; then \
 		rm -rf ${ENV_NAME}; \
 	fi
-	if [ -a requirements.txt ]; then \
-		touch requirements.txt; \
+	if [ -a base/requirements.txt ]; then \
+		touch base/requirements.txt; \
 	fi
 	which virtualenv && pip install virtualenv || true
 	virtualenv -p ${PYTHON_VERSION} ${ENV_NAME}
-	./${ENV_NAME}/bin/pip install -r requirements.txt
+	./${ENV_NAME}/bin/pip install -r base/requirements.txt
 
 run: 
 	if [ ! -d ${ENV_NAME} ]; then \
