@@ -37,7 +37,9 @@ If you would like your website to have ssl (which is highly recommended) you can
 ENV CERTPATH=/path/to/your/certs
 ```
 
-This CERTPATH should be relative to where it will be mounted in the container. If you are using letsencrypt, thit will be mounted automatically. Certbot puts your certs in `/etc/letsencrpyt/live/<sitename>/` by default. More on certbot [here](https://certbot.eff.org/). When you go to deploy your application, the docker compose will
+If `CERTPATH` is not defined, then your application will use http by default. If this is the case, then you must edit your `docker-compose.yml` so that the container binds to port 80.
+
+This CERTPATH should be relative to where it will be mounted in the container. If you are using letsencrypt, thit will be mounted automatically. Certbot puts your certs in `/etc/letsencrpyt/live/<sitename>/` by default. More on certbot [here](https://certbot.eff.org/). When you go to deploy your application, the docker compose will mount `/etc/letsencrypt` by default. 
 
 
 # Author
