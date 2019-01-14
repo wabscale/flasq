@@ -1,11 +1,13 @@
 stages:
   - build
 
+before_script:
+  - docker login -u jmc1283 -p ${DOCKER_PASSWORD}
+  
 build_flasq:
   stage: build
   tags:
     - server-tag
   script:
     - make buildbase
-    - docker login -u jmc1283 -p ${DOCKER_PASSWORD}
     - docker push jmc1283/flasq-base
