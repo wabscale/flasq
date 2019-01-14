@@ -2,7 +2,6 @@
 
 # flasq
 For when you need a quick flask app, but are too lazy to write the basics.
-Flasq supports letsencrypt for ssl.
 
 # Quickstart
 
@@ -42,5 +41,5 @@ If `CERTPATH` is not defined, then your application will use http by default. If
 This CERTPATH should be relative to where it will be mounted in the container. If you are using letsencrypt, thit will be mounted automatically. Certbot puts your certs in `/etc/letsencrpyt/live/<sitename>/` by default. More on certbot [here](https://certbot.eff.org/). When you go to deploy your application, the docker compose will mount `/etc/letsencrypt` by default. 
 
 
-# Author
+# Maintainer
 John Cunniff | big_J
