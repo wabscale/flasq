@@ -9,4 +9,4 @@ services:
       - "443:5000"
     volumes:
       - "/etc/letsencrypt:/etc/letsencrypt"
-      - "/route/to/data:/home/flasq/${SITENAME}/web/data"
+      - "/route/to/data:/flask/web/data"
