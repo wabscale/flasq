@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, g, Blueprint, send_
 from flask_login import current_user, login_required
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
+from flask_wtf import CSRFProtect
 
 from .config import Config
 
@@ -12,6 +13,7 @@ app = Flask(__name__, static_url_path='/static')
 app.config.from_object(Config)
 
 Bootstrap(app)
+CSRFProtect(app)
 db = SQLAlchemy(app)
 
 
