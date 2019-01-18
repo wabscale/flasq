@@ -1,6 +1,6 @@
-{% from 'bootstrap/form.html' import render_form %}
+{% from 'bootstrap/form.html' import render_form, render_field %}
 {% from 'bootstrap/nav.html' import render_nav_item %}
-
+{% from 'form.html' import make_form %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,14 +19,13 @@
 <body>
 <nav class="navbar navbar-expand-sm navbar-inverse" id="top-navbar">
     <div class="container-fluid">
-
-        {% block navbar %}
-            <ul class="nav navbar-nav">
-                <li class="navbar-header">
-                    <a class="navbar-brand" href="/" id="index-nav">Website</a>
-                </li>
+        <a class="navbar-brand" href="url_for('index')" id="index-nav">Website</a>
+        {% block navbarleft %}
+            <ul lcass="nav navbar-nav mr-auto">
+                {# {{ render_nav_item('blueprint.view', 'title', use_li=True) }} #}
             </ul>
-
+        {% endblock navbarleft %}
+        {% block navbarright %}
             <ul class="nav navbar-nav navbar-right">
                 {% if current_user.is_authenticated %}
                     <li class="nav-item">
@@ -34,7 +33,7 @@
                     </li>
                     <li id="logout-nav">
                         <a href="{{ url_for('auth.logout') }}"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
-                    </li class="nav-item">
+                    </li>
                 {% else %}
                     <li class="nav-item">
                         <a href="{{ url_for('auth.login') }}"><span class="glyphicon glyphicon-log-in"></span> Login</a>
@@ -55,9 +54,9 @@
     </div>
 </main>
 
-
-<script src="/static/js/navbar.js"></script>
+{% block scripts %}
 {{ bootstrap.load_js() }}
-
+<script src="url_for('static', filename='js/utils.js')"></script>
+{% endblock scripts %}
 </body>
 </html>
