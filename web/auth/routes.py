@@ -1,10 +1,11 @@
 from flask import request, redirect, url_for, flash, render_template, Blueprint
 from flask_login import current_user, login_user, logout_user, login_required
 from sqlalchemy.exc import IntegrityError
+
 from .forms import LoginForm, RegistrationForm
+
 from ..app import db
 from ..models import User
-
 
 auth = Blueprint('auth', __name__, url_prefix='/auth')
 
