@@ -42,4 +42,4 @@ This CERTPATH should be relative to where it will be mounted in the container. I
 
 
 # Maintainer
-John Cunniff | big_J
+- big_J
