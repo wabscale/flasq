@@ -22,23 +22,14 @@ Obviously you can do whatever you want, but I would recomend following that stru
 Debuging is easy! Just run `make run`. the first time you run this, it will create a `virtualenv` with all the dependencies you need. To clean your project of all these files just run `make clean`. If you want to test the docker container, you can do that with `make build && make rund`. This will build the container, then run it. If you need to change the docker options, feel free to edit the `Makefile`. There is a convinient variable called `DOCKER_OPTIONS` that is defined at the top. Anything you put there will be an option when the container is run.
 
 ### Deploying
-When you deploy your flasq app, there are two folders that will be mounted to your docker container (If you use my `docker-compose.yml`). The first mounts `/etc/letsencrypt` on the machine to the docker container. Go ahead and check the letsencrypt section for more on this. The other folder is mounts to `web/data` this is where the site database will be. This is something that you will need to change in the `docker-compose.yml`. To deploy all you need to do is build your containers and deploy:
+When you deploy your flasq app, there are two folders that will be mounted to your docker container (If you use my `docker-compose.yml`). To deploy all you need to do is run the deploy target:
 
 ```
-make cbuild
 make deploy
 ```
 
-### Letsencrypt support
-If you would like your website to have ssl (which is highly recommended) you can do so easily. Once you have your certs, all you need to do is add this line to your `Dockerfile`:
-
-```
-ENV CERTPATH=/path/to/your/certs
-```
-
-If `CERTPATH` is not defined, then your application will use http by default. If this is the case, then you must edit your `docker-compose.yml` so that the container binds to port 80.
-
-This CERTPATH should be relative to where it will be mounted in the container. If you are using letsencrypt, thit will be mounted automatically. Certbot puts your certs in `/etc/letsencrpyt/live/<sitename>/` by default. More on certbot [here](https://certbot.eff.org/). When you go to deploy your application, the docker compose will mount `/etc/letsencrypt` by default. 
+### traefik
+You will want to read up on how traefik works, as it is how the container will get routed too. Make sure to add your trafik labels in the `docker-compose.yml` and update the acme and docker info in `traefik.toml`.
 
 
 # Maintainer
