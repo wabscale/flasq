@@ -1,0 +1,34 @@
+logLevel = "WARN" #DEBUG, INFO, WARN, ERROR, FATAL, PANIC
+defaultEntryPoints = ["http", "https"]
+InsecureSkipVerify = true 
+
+[entryPoints]
+  [entryPoints.http]
+  address = ":80"
+  compress = true
+    [entryPoints.http.redirect]
+    entryPoint = "https"
+  [entryPoints.https]
+  address = ":443"
+  compress = true
+    [entryPoints.https.tls]
+
+[api]
+  [api.auth.basic]
+  users = [""]
+entryPoint = "https"
+dashboard = true
+
+[acme]
+email = "{email}"
+storage="/etc/traefik/acme/acme.json"
+entryPoint = "https"
+acmeLogging = true
+onHostRule = true
+  [acme.httpChallenge]
+  entryPoint = "http"
+
+[docker]
+endpoint = "unix:///var/run/docker.sock"
+domain = "{domain}"
+watch = true
