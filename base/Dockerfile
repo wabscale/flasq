@@ -1,5 +1,6 @@
-FROM alpine
+FROM alpine:3.9
 
+# default values
 ENV CERTPATH=default
 ENV SITENAME=default
 ENV WORKERS=8
