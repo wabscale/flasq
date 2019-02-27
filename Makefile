@@ -4,14 +4,16 @@ ENV_NAME=venv
 PYTHON_VERSION=`which python3`
 
 # Docker
-DOCKER_IMAGE_NAME=flasq
-DOCKER_OPTIONS=--rm -it -p 5000:5000
 DOCKER=docker
+DOCKER_IMAGE_NAME=flasq
 DOCKER_COMPOSE=docker-compose
+
+DOCKER_OPTIONS=--rm -it -p 5000:5000
+DOCKER_DEPLOY_OPTIONS=
 
 .PHONY: all deploy buildall build buildbase rund killd setup cun cleand
 
-all: build rund 
+all: build rund
 buildall: buildbase build
 
 ############################################################
@@ -27,8 +29,12 @@ deploy:
 	if [ -n "`docker image list -q | nice grep jmc1283/flasq-base`" ]; then \
 		${DOCKER} pull jmc1283/flasq-base; \
 	fi
+	if ! docker network ls | grep "traefik-proxy"; then \
+		docker network create traefik-proxy; \
+	fi
 	${DOCKER_COMPOSE} kill
-	${DOCKER_COMPOSE} up --build -d
+	${DOCKER_COMPOSE} rm -f
+	${DOCKER_COMPOSE} up --build -d --force-recreate ${DOCKER_DEPLOY_OPTIONS}
 
 build:
 	if [ -n "`docker image list -q | nice grep jmc1283/flasq-base`" ]; then \
@@ -43,7 +49,7 @@ rund: killd
 	${DOCKER} run ${DOCKER_OPTIONS} --name ${DOCKER_IMAGE_NAME} ${DOCKER_IMAGE_NAME}
 
 cleand: killd
-	echo 'y' | ${DOCKER} system prune
+	${DOCKER} system prune -f
 	if [ -n "`${DOCKER} image list -q | grep ${DOCKER_IMAGE_NAME}`" ]; then \
 		${DOCKER} rmi ${DOCKER_IMAGE_NAME}; \
 		${DOCKER} rmi jmc1283/flasq-base; \
@@ -63,7 +69,7 @@ killd:
 # | (_| |  __/ |_) | |_| | (_| | \__ \ |_| |_| |  _|  _| #
 #  \__,_|\___|_.__/ \__,_|\__, | |___/\__|\__,_|_| |_|   #
 #                         |___/                          #
-#							 #
+#																												 #
 ##########################################################
 
 setup:
@@ -77,9 +83,12 @@ setup:
 	virtualenv -p ${PYTHON_VERSION} ${ENV_NAME}
 	./${ENV_NAME}/bin/pip install -r base/requirements.txt
 
-run: 
+run:
 	if [ ! -d ${ENV_NAME} ]; then \
 		make setup; \
+	fi
+	if [ ! -e web/.data ]; then \
+		mkdir web/.data; \
 	fi
 	./${ENV_NAME}/bin/python ${MAIN_NAME}
 
