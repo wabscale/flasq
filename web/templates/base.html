@@ -4,59 +4,75 @@
 
 <!DOCTYPE html>
 <html lang="en">
-{% block header %}
+  {% block header %}
     <head>
-        {% block title %}
-            <title>Website</title>
-        {% endblock %}
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        {{ bootstrap.load_css() }}
-        <link rel="stylesheet" href="/static/css/style.css">
+      {% block title %}
+        <title>Website</title>
+      {% endblock %}
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      {{ bootstrap.load_css() }}
+      <link rel="stylesheet" href="/static/css/style.css">
     </head>
-{% endblock %}
+  {% endblock %}
 
-<body>
-<nav class="navbar navbar-expand-sm navbar-inverse" id="top-navbar">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="url_for('index')" id="index-nav">Website</a>
+  <body>
+    <nav class="navbar navbar-expand-sm navbar-inverse" id="top-navbar">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{{ url_for('index') }}" id="index-nav">Website</a>
         {% block navbarleft %}
-            <ul lcass="nav navbar-nav mr-auto">
-                {# {{ render_nav_item('blueprint.view', 'title', use_li=True) }} #}
-            </ul>
+          <ul lcass="nav navbar-nav mr-auto">
+            {# {{ render_nav_item('blueprint.view', 'title', use_li=True) }} #}
+          </ul>
         {% endblock navbarleft %}
         {% block navbarright %}
-            <ul class="nav navbar-nav navbar-right">
-                {% if current_user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="navbar-brand">{{ current_user.name }}</a>
-                    </li>
-                    <li id="logout-nav">
-                        <a href="{{ url_for('auth.logout') }}"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
-                    </li>
-                {% else %}
-                    <li class="nav-item">
-                        <a href="{{ url_for('auth.login') }}"><span class="glyphicon glyphicon-log-in"></span> Login</a>
-                    </li>
-                {% endif %}
-            </ul>
+          <ul class="nav navbar-nav navbar-right">
+            {% if current_user.is_authenticated %}
+              <li class="nav-item">
+                <a class="navbar-brand">{{ current_user.name }}</a>
+              </li>
+            <li id="logout-nav">
+              <a href="{{ url_for('auth.logout') }}"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a href="{{ url_for('auth.login') }}"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+            </li>
+          {% endif %}
+          </ul>
         {% endblock %}
-    </div>
-</nav>
-<br>
+      </div>
+    </nav>
+    <br>
 
-<main role="main">
-    <div class="container-fluid">
-        <div class="content">
-            {% block content %}
-            {% endblock %}
+    <main role="main">
+      <div class="container-fluid">
+        <div class="container">
+          <div class="col-md-4 offset-md-4">
+            {%- with messages = get_flashed_messages() %}
+              {%- if messages %}
+                {% for message in messages %}
+                  <div class="alert alert-danger alrt-dismissable" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                    </button>
+                  </div>
+                {% endfor %}
+              {%- endif %}
+            {%- endwith %}
+          </div>
         </div>
-    </div>
-</main>
+        <div class="content">
+          {% block content %}
+          {% endblock %}
+        </div>
+      </div>
+    </main>
 
-{% block scripts %}
-{{ bootstrap.load_js() }}
-<script src="url_for('static', filename='js/utils.js')"></script>
-{% endblock scripts %}
-</body>
+    {% block scripts %}
+      {{ bootstrap.load_js() }}
+      <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+    {% endblock scripts %}
+  </body>
 </html>
