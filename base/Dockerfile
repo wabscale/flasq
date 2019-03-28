@@ -1,12 +1,10 @@
-FROM alpine:3.9
+FROM python:3.7-alpine
 
 # default values
 ENV CERTPATH=default
 ENV SITENAME=default
 ENV WORKERS=8
 ENV PORT=5000
-
-RUN apk --update add python3 python3-dev
 
 COPY requirements.txt /flasq/
 WORKDIR /flasq
