@@ -1,4 +1,4 @@
-version: '3'
+version: '2'
 
 services:
   traefik:
@@ -11,9 +11,9 @@ services:
       - "./traefik.toml:/etc/traefik/traefik.toml"
       - "/var/run/docker.sock:/var/run/docker.sock"
     labels:
-      - "traefik.port=8080"
-      - "traefik.enabled=true"
+      - "traefik.enable=false"
       - "traefik.backend=traefik"
+      # - "traefik.port=8080"
       # - "traefik.frontend.auth.basic.users={user:hash}"
       # - "traefik.frontend.rule=Host:traefik.{domain}"
     networks:
@@ -26,16 +26,15 @@ services:
     expose:
       - "80"
     volumes:
-      - "./web/.data:/flasq/web/.data"
+      - "./.data:/flasq/.data"
     labels:
-      - "traefik.enabled=true"
-      - "traefik.backend=traefik"
+      - "traefik.enable=true"
+      - "traefik.backend=flasq"
       - "traefik.port=80"
-      - "traefik.frontend.rule=Host:{domain}"
+      - "traefik.frontend.rule=Host:"
     environment:
       - "PORT=80"
       - "WORKERS=4"
-      - "SITENAME={websitename}"
     networks:
       - traefik-proxy
 

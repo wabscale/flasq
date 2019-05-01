@@ -6,11 +6,8 @@ from flask_wtf import CSRFProtect
 
 from .config import Config
 
-host = '0.0.0.0'
-port = 5000
-
 app = Flask(__name__, static_url_path='/static')
-app.config.from_object(Config)
+app.config.from_object(Config())
 
 Bootstrap(app)
 CSRFProtect(app)
@@ -26,6 +23,20 @@ app.register_blueprint(auth)
 @login_required
 def index():
     return render_template('index.html')
+
+
+db.create_all()
+
+
+if app.config['DEBUG']:
+    from .models import User
+    if User.query.filter_by(
+        username='admin'
+    ).first() is None:
+        u=User(username='admin')
+        u.set_password('password')
+        db.session.add(u)
+        db.session.commit()
 
 
 if __name__ == '__main__':

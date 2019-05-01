@@ -1,0 +1,43 @@
+{
+  "name": "flasq",
+  "version": "1.0.0",
+  "description": "flasq",
+  "main": "webpack.config.js",
+  "scripts": {
+    "build": "webpack",
+    "watch": "webpack --watch --progress --info-verbosity verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/b1g_J/flasq.git"
+  },
+  "author": "big_j",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/b1g_J/flasq/issues"
+  },
+  "homepage": "https://gitlab.com/b1g_J/flasq#readme",
+  "dependencies": {
+    "@babel/core": "^7.4.3",
+    "@babel/plugin-proposal-class-properties": "^7.4.0",
+    "@babel/plugin-transform-react-jsx": "^7.3.0",
+    "@babel/preset-env": "^7.4.3",
+    "@fortawesome/fontawesome-svg-core": "^1.2.17",
+    "@fortawesome/free-solid-svg-icons": "^5.8.1",
+    "@fortawesome/react-fontawesome": "^0.1.4",
+    "axios": "^0.18.0",
+    "babel-loader": "^8.0.5",
+    "core-js": "2",
+    "css-loader": "^2.1.1",
+    "node-sass": "^4.11.0",
+    "react": "^16.8.6",
+    "react-bootstrap": "^1.0.0-beta.8",
+    "react-dom": "^16.8.6",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.29.6"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.3.1"
+  }
+}

@@ -1,6 +1,18 @@
+upload_path
+
 env
 venv
 
 __pycache__
 
-web/.data
+traefik/auth
+
+.data
+
+*.db
+*.sql
+
+.idea/
+node_modules
+package-lock.json
+npm-debug.log

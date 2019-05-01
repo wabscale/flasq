@@ -87,9 +87,6 @@ run:
 	if [ ! -d ${ENV_NAME} ]; then \
 		make setup; \
 	fi
-	if [ ! -e web/.data ]; then \
-		mkdir web/.data; \
-	fi
 	./${ENV_NAME}/bin/python ${MAIN_NAME}
 
 clean:
